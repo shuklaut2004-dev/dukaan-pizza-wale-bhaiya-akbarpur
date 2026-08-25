@@ -89,11 +89,16 @@
   .drip{width:100%;height:34px;display:block;color:var(--accent);}
 
   header{
-    position:sticky;top:0;z-index:50;
-    background:rgba(252,243,227,.94);
-    backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);
-  }
+  position:sticky;top:0;z-index:50;
+  background:rgba(252,243,227,.94);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+  transition: transform 0.3s ease-in-out; 
+}
+
+.header-hidden {
+  transform: translateY(-100%);
+}
   .nav{
     display:flex;align-items:center;justify-content:space-between;
     padding:14px 24px;max-width:var(--maxw);margin:0 auto;
@@ -834,6 +839,22 @@
   hamburger.addEventListener('click', () => header.classList.toggle('open'));
   document.querySelectorAll('#mobile-menu a').forEach(a => {
     a.addEventListener('click', () => header.classList.remove('open'));
+  });
+  // Scroll hide/show logic
+  let lastScrollTop = 0;
+  window.addEventListener('scroll', function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > 50) {
+      if (scrollTop > lastScrollTop) {
+        // Neeche scroll karne par hide
+        header.classList.add('header-hidden');
+      } else {
+        // Upar scroll karne par show
+        header.classList.remove('header-hidden');
+      }
+    }
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
   });
 </script>
 
