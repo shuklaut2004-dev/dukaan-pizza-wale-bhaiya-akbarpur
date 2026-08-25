@@ -845,6 +845,11 @@
   window.addEventListener('scroll', function() {
     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     
+    // NAYI CONDITION: Agar mobile menu khula hai, toh header ko hide mat karo
+    if (header.classList.contains('open')) {
+      return;
+    }
+    
     if (scrollTop > 50) {
       if (scrollTop > lastScrollTop) {
         // Neeche scroll karne par hide
